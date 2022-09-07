@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseProject.Models
@@ -8,6 +9,6 @@ namespace DatabaseProject.Models
         [Key]
         public int Key { get; set; }
         public string Name { get; set; }
-        public Payment Payment { get; set; }
+        public List<Payment> Payments { get; set; }
     }
 }
