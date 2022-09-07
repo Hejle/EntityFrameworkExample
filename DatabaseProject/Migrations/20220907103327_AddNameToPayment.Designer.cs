@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseProject.Migrations
 {
     [DbContext(typeof(TransactionContext))]
-    [Migration("20220907101100_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220907103327_AddNameToPayment")]
+    partial class AddNameToPayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,15 @@ namespace DatabaseProject.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TransactionKey")
+                        .HasColumnType("int");
+
                     b.HasKey("Key");
+
+                    b.HasIndex("TransactionKey");
 
                     b.ToTable("Payment");
                 });
@@ -45,23 +53,21 @@ namespace DatabaseProject.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PaymentKey")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Key");
-
-                    b.HasIndex("PaymentKey");
 
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("DatabaseProject.Models.Payment", b =>
+                {
+                    b.HasOne("DatabaseProject.Models.Transaction", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("TransactionKey");
+                });
+
             modelBuilder.Entity("DatabaseProject.Models.Transaction", b =>
                 {
-                    b.HasOne("DatabaseProject.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentKey");
-
-                    b.Navigation("Payment");
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

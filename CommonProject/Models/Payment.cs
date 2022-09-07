@@ -8,5 +8,6 @@ namespace DatabaseProject.Models
         [Key]
         public Guid Key { get; set; }
         public double Amount { get; set; }
+        public string Name { get; set; }
     }
 }

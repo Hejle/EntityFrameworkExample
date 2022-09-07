@@ -28,6 +28,9 @@ namespace DatabaseProject.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("TransactionKey")
                         .HasColumnType("int");
 
